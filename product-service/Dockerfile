@@ -10,6 +10,9 @@ COPY gradlew /app
 COPY build.gradle /app
 COPY settings.gradle /app
 
+# Otorga permisos de ejecución al archivo gradlew
+RUN chmod +x gradlew
+
 # Descarga las dependencias de Gradle (sin compilar aún)
 RUN ./gradlew build --no-daemon
 
