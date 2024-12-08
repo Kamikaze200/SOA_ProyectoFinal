@@ -9,20 +9,22 @@ COPY gradle /app/gradle
 COPY gradlew /app
 COPY build.gradle /app
 COPY settings.gradle /app
+COPY gradle.properties /app  # Copiar este archivo si existe
 
 # Otorga permisos de ejecución al archivo gradlew
 RUN chmod +x gradlew
 
-# Descarga las dependencias de Gradle (sin compilar aún)
-RUN ./gradlew build --no-daemon
-
-# Copia el código fuente del proyecto
+# Copia el código fuente del proyecto antes de la primera compilación
 COPY src /app/src
 
-# Construcción del proyecto
-RUN ./gradlew build --no-daemon
+# Descarga las dependencias de Gradle (sin compilar aún)
+RUN ./gradlew build --no-daemon --warning-mode all
 
-# Etapa 2: Imágen final
+# Construcción del proyecto (ahora que todo el código fuente está copiado)
+RUN ./gradlew build --no-daemon --warning-mode all
+
+
+# Etapa 2: Imagen final
 FROM openjdk:11-jre-slim
 
 # Establece el directorio de trabajo
