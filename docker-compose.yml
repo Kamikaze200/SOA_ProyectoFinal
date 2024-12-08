@@ -1,0 +1,80 @@
+version: '3.7'
+
+services:
+  registry-service:
+    image: kamikaze123/registry-service
+    container_name: registry-service
+    ports:
+      - "8099:8099"
+    networks:
+      - microservices
+
+  gateway-service:
+    image: kamikaze123/gateway-service
+    container_name: gateway-service
+    ports:
+      - "8080:8080"
+    networks:
+      - microservices
+    depends_on:
+      - registry-service
+    environment:
+      - EUREKA_SERVER_PORT=8099
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://registry-service:8099/eureka/
+      - EUREKA_INSTANCE_PREFERIPADDRESS=true
+  
+  admin-service:
+    image: kamikaze123/admin-service
+    container_name: admin-service
+    ports:
+      - "8086:8086"
+    networks:
+      - microservices
+    depends_on:
+      - registry-service
+
+  product-service:
+    image: kamikaze123/product-service
+    container_name: product-service
+    ports:
+      - "8091:8091"
+    networks:
+      - microservices
+    depends_on:
+      - registry-service
+    environment:
+      - EUREKA_SERVER_PORT=8099
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://registry-service:8099/eureka/
+      - EUREKA_INSTANCE_PREFERIPADDRESS=true
+
+  shopping-service:
+    image: kamikaze123/shopping-service
+    container_name: shopping-service
+    ports:
+      - "8093:8093"
+    networks:
+      - microservices
+    depends_on:
+      - registry-service
+    environment:
+      - EUREKA_SERVER_PORT=8099
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://registry-service:8099/eureka/
+      - EUREKA_INSTANCE_PREFERIPADDRESS=true
+
+  customer-service:
+    image: kamikaze123/customer-service
+    container_name: customer-service
+    ports:
+      - "8092:8092"
+    networks:
+      - microservices
+    depends_on:
+      - registry-service
+    environment:
+      - EUREKA_SERVER_PORT=8099
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://registry-service:8099/eureka/
+      - EUREKA_INSTANCE_PREFERIPADDRESS=true
+
+networks:
+  microservices:
+    driver: bridge
