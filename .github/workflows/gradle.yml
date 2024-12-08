@@ -114,6 +114,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
       - name: Clean Docker cache
         run: docker builder prune -f
+
         
       - name: Build and Push Gateway Docker Image
         run: |
@@ -122,6 +123,9 @@ jobs:
           docker build -t kamikaze123/gateway-service:latest -t kamikaze123/gateway-service:${SHORT_SHA} .
           docker push kamikaze123/gateway-service:${SHORT_SHA}
           docker push kamikaze123/gateway-service:latest
+
+
+          
 
           
       
