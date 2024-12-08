@@ -11,6 +11,7 @@ on:
       - 'product-service/**'
       - 'shopping-service/**'
       - 'customer-service/**'
+      - 'gateway-service/**'
   pull_request:
     branches: [ "main" ]
 
@@ -72,7 +73,7 @@ jobs:
       - name: Clean Docker cache
         run: docker builder prune -f
         
-      - name: Build and Push Product Docker Image
+      - name: Build and Push Shopping Docker Image
         run: |
           cd product-service
           SHORT_SHA=${GITHUB_SHA::7}
