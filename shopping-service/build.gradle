@@ -54,3 +54,6 @@ dependencyManagement {
 test {
 	useJUnitPlatform()
 }
+bootJar {
+	mainClassName = 'academy.digitallab.store.shopping.ShoppingServiceApplication'
+}
