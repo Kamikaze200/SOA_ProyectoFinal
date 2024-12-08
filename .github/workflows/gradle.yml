@@ -9,7 +9,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      -'registry-service/**'
+      - 'registry-service/**'
   pull_request:
     branches: [ "main" ]
 
