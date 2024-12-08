@@ -1,13 +1,11 @@
-# Este flujo de trabajo construirá un proyecto Java con Gradle y almacenará en caché/restaurará las dependencias para mejorar el tiempo de ejecución del flujo de trabajo.
-# Para más información, consulta: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
-
 name: Build and Push Docker Images - MICROSERVICES
 
 on:
   push:
     branches: [ "main" ]
     paths:
-      - 'registry-service/**'
+      - 'product-service/**'
+      - 'product-service/**'
   pull_request:
     branches: [ "main" ]
 
@@ -29,12 +27,34 @@ jobs:
         
       - name: Build and Push Eureka Docker Image
         run: |
-          cd registry-service
+          cd product-service
           SHORT_SHA=${GITHUB_SHA::7}
-          docker build -t kamikaze123/registry-service:latest -t kamikaze123/registry-service:${SHORT_SHA} .
-          docker push kamikaze123/registry-service:${SHORT_SHA}
-          docker push kamikaze123/registry-service:latest
+          docker build -t kamikaze123/product-service:latest -t kamikaze123/product-service:${SHORT_SHA} .
+          docker push kamikaze123/product-service:${SHORT_SHA}
+          docker push kamikaze123/product-service:latest
 
+  build-product-microservice:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: Clean Docker cache
+        run: docker builder prune -f
+        
+      - name: Build and Push Product Docker Image
+        run: |
+          cd product-service
+          SHORT_SHA=${GITHUB_SHA::7}
+          docker build -t kamikaze123/product-service:latest -t kamikaze123/product-service:${SHORT_SHA} .
+          docker push kamikaze123/product-service:${SHORT_SHA}
+          docker push kamikaze123/product-service:latest
 
 
     
