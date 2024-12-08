@@ -1,10 +1,3 @@
-# Este flujo de trabajo usa acciones que no están certificadas por GitHub.
-# Son proporcionadas por terceros y están gobernadas por términos de servicio, política de privacidad y documentación de soporte separados.
-# Este flujo de trabajo construirá un proyecto Java con Gradle y almacenará en caché/restaurará las dependencias para mejorar el tiempo de ejecución del flujo de trabajo.
-# Para más información, consulta: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
-
-# Este flujo de trabajo usa acciones que no están certificadas por GitHub.
-# Son proporcionadas por terceros y están gobernadas por términos de servicio, política de privacidad y documentación de soporte separados.
 # Este flujo de trabajo construirá un proyecto Java con Gradle y almacenará en caché/restaurará las dependencias para mejorar el tiempo de ejecución del flujo de trabajo.
 # Para más información, consulta: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
