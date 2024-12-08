@@ -122,6 +122,8 @@ jobs:
           docker build -t kamikaze123/gateway-service:latest -t kamikaze123/gateway-service:${SHORT_SHA} .
           docker push kamikaze123/gateway-service:${SHORT_SHA}
           docker push kamikaze123/gateway-service:latest
+
+          
       
 
 
