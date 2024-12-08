@@ -5,6 +5,7 @@ import academy.digitallab.store.customer.repository.entity.Region;
 
 import java.util.List;
 
+
 public interface CustomerService {
 
     public List<Customer> findCustomerAll();
