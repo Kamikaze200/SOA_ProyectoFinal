@@ -10,6 +10,7 @@ on:
       - 'registry-service/**'
       - 'product-service/**'
       - 'shopping-service/**'
+      - 'customer-service/**'
   pull_request:
     branches: [ "main" ]
 
@@ -71,14 +72,34 @@ jobs:
       - name: Clean Docker cache
         run: docker builder prune -f
         
-      - name: Build and Push Product Docker Image
+      - name: Build and Push Shopping Docker Image
         run: |
-          cd product-service
+          cd shopping-service
           SHORT_SHA=${GITHUB_SHA::7}
           docker build -t kamikaze123/shopping-service:latest -t kamikaze123/shopping-service:${SHORT_SHA} .
           docker push kamikaze123/shopping-service:${SHORT_SHA}
           docker push kamikaze123/shopping-service:latest
-    
+  
+  build-customer-microservice:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      - name: Clean Docker cache
+        run: docker builder prune -f
+        
+      - name: Build and Push Customer Docker Image
+        run: |
+          cd customer-service
+          SHORT_SHA=${GITHUB_SHA::7}
+          docker build -t kamikaze123/customer-service:latest -t kamikaze123/customer-service:${SHORT_SHA} .
+          docker push kamikaze123/customer-service:${SHORT_SHA}
+          docker push kamikaze123/customer-service:latest
       
 
 
