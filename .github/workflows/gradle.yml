@@ -33,9 +33,9 @@ jobs:
         run: |
           cd registry-service
           SHORT_SHA=${GITHUB_SHA::7}
-          docker build -t Kamikaze200/registry-service:latest -t Kamikaze200/registry-service:${SHORT_SHA} .
-          docker push Kamikaze200/registry-service:${SHORT_SHA}
-          docker push Kamikaze200/registry-service:latest
+          docker build -t kamikaze200/registry-service:latest -t kamikaze200/registry-service:${SHORT_SHA} .
+          docker push kamikaze200/registry-service:${SHORT_SHA}
+          docker push kamikaze200/registry-service:latest
 
 
 
