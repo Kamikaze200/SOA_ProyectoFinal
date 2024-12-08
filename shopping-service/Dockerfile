@@ -9,7 +9,9 @@ COPY gradle /app/gradle
 COPY gradlew /app
 COPY build.gradle /app
 COPY settings.gradle /app
-COPY gradle.properties /app  # Copiar este archivo si existe
+
+# Copiar gradle.properties solo si existe
+RUN if [ -f gradle.properties ]; then cp gradle.properties /app/; fi
 
 # Otorga permisos de ejecución al archivo gradlew
 RUN chmod +x gradlew
